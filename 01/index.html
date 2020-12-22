@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>JS 01</title>
+  </head>
+  <body>
+    <div class="bg">
+      <div class="key" data-key="A">
+        <div class="title">A</div>
+        <div class="description">CLAP</div>
+        <audio data-key="A" src="./raw/sounds/clap.wav"></audio>
+      </div>
+      <div class="key" data-key="S">
+        <div class="title">S</div>
+        <div class="description">HIHAT</div>
+        <audio data-key="S" src="./raw/sounds/hihat.wav"></audio>
+      </div>
+      <div class="key" data-key="D">
+        <div class="title">D</div>
+        <div class="description">KICK</div>
+        <audio data-key="D" src="./raw/sounds/kick.wav"></audio>
+      </div>
+      <div class="key" data-key="F">
+        <div class="title">F</div>
+        <div class="description">OPENHAT</div>
+        <audio data-key="F" src="./raw/sounds/openhat.wav"></audio>
+      </div>
+      <div class="key" data-key="G">
+        <div class="title">G</div>
+        <div class="description">BOOM</div>
+        <audio data-key="G" src="./raw/sounds/boom.wav"></audio>
+      </div>
+      <div class="key" data-key="H">
+        <div class="title">H</div>
+        <div class="description">RIDE</div>
+        <audio data-key="H" src="./raw/sounds/ride.wav"></audio>
+      </div>
+      <div class="key" data-key="J">
+        <div class="title">J</div>
+        <div class="description">SNARE</div>
+        <audio data-key="J" src="./raw/sounds/snare.wav"></audio>
+      </div>
+      <div class="key" data-key="K">
+        <div class="title">K</div>
+        <div class="description">TOM</div>
+        <audio data-key="K" src="./raw/sounds/tom.wav"></audio>
+      </div>
+      <div class="key" data-key="L">
+        <div class="title">L</div>
+        <div class="description">TINK</div>
+        <audio data-key="L" src="./raw/sounds/tink.wav"></audio>
+      </div>
+    </div>
+    <script>
+      ;(function () {
+        document.addEventListener('keydown', addClass)
+        document.addEventListener('keyup', removeClass)
+
+        let keyData = []
+        document.querySelectorAll('.key').forEach((item) => keyData.push(item.attributes[1].value))
+        console.log(keyData)
+
+        function addClass(e) {
+          if (keyData.indexOf(e.key) === -1) return false
+          const el = document.querySelector(`div[data-key=${e.key}]`)
+          const elAudio = document.querySelector(`audio[data-key=${e.key}]`)
+          if (!elAudio.paused) return false
+          el.classList.add('playing')
+          playAudio(elAudio)
+        }
+        function removeClass(e) {
+          if (keyData.indexOf(e.key) === -1) return false
+          const el = document.querySelector(`div[data-key=${e.key}]`)
+          el.classList.remove('playing')
+        }
+        async function playAudio(el) {
+          el.play()
+        }
+      })()
+    </script>
+  </body>
+</html>
